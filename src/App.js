@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import JsxTest from './components/JsxTest'
+import StateMgt from './components/StateMgt'
+import EventHandle from './components/EventHandle'
+import ContextTest from './components/ContextTest'
+import HocTest from './components/HocTest'
+import Composition from './components/Composition'
+import CompositionChildren from './components/CompositionChildren'
+import HooksTest from './components/HooksTest'
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>{props.title}</h1>
+      {/* <JsxTest /> */}
+      {/* 状态管理 */}
+      {/* <StateMgt /> */}
+      {/* 事件处理 */}
+      {/* <EventHandle /> */}
+      {/* 上下文 */}
+      {/* <ContextTest /> */}
+      {/* 高阶组件 HOC */}
+      {/* <HocTest /> */}
+      {/* 组件复合 */}
+      {/* <Composition /> */}
+      {/* 组件复合 修改children */}
+      {/* <CompositionChildren /> */}
+      {/* Hooks */}
+      <HooksTest />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
