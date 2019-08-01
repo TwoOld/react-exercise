@@ -1,0 +1,7 @@
+.img {
+  border: 1px solid green;
+}
+.img2 {
+  composes: img;
+  border-radius: 50%;
+}
