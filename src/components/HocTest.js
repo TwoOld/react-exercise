@@ -44,24 +44,24 @@ const LessonWithContent = withLog(withContent(Lesson))
 
 // 装饰器语法 @withLog
 // 先后顺序：从下往上
-// @withLog
-// @withContent
-// class Lesson2 extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         {this.props.stage} - {this.props.title}
-//       </div>
-//     )
-//   }
-// }
+@withLog
+@withContent
+class Lesson2 extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.stage} - {this.props.title}
+      </div>
+    )
+  }
+}
 
 export default function HocTest() {
   return (
     <div>
       {[0, 0, 0].map((item, idx) => (
-        <LessonWithContent key={idx} idx={idx} />
-        // <Lesson2 key={idx} idx={idx} />
+        // <LessonWithContent key={idx} idx={idx} />
+        <Lesson2 key={idx} idx={idx} />
       ))}
     </div>
   )

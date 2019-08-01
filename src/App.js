@@ -8,6 +8,17 @@ import Composition from './components/Composition'
 import CompositionChildren from './components/CompositionChildren'
 import HooksTest from './components/HooksTest'
 
+// import Button from 'antd/lib/button'
+// import "antd/dist/antd.css"
+
+import { Button } from 'antd'
+import WrappedNormalLoginForm from './components/FormTest'
+import KFormTest from './components/KFormTest'
+import Dialog from './components/Dialog'
+import Dialog2 from './components/Dialog2'
+import Tree from './components/Tree'
+import CommentList from './components/CommentList'
+
 function App(props) {
   return (
     <div>
@@ -26,7 +37,18 @@ function App(props) {
       {/* 组件复合 修改children */}
       {/* <CompositionChildren /> */}
       {/* Hooks */}
-      <HooksTest />
+      {/* <HooksTest /> */}
+      {/* <Button>HELLO</Button> */}
+      {/* Form */}
+      {/* <WrappedNormalLoginForm /> */}
+      {/* <KFormTest /> */}
+      {/* 弹窗 */}
+      {/* <Dialog>something!!!</Dialog> */}
+      {/* <Dialog2>anything!!!</Dialog2> */}
+      {/* 树 */}
+      {/* <Tree /> */}
+      {/* update */}
+      <CommentList />
     </div>
   )
 }
