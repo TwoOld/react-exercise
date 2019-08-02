@@ -773,7 +773,7 @@ React v16.0 刚推出的时候，是增加了一个 componentDidCatch 生命周�
 
 - getDerivedStateFromProps
 
-**static getDerivedStateFromProps(props, state)**在组件创建时和更新时的 render 方法之前调用，它应该返回一个对象来更新状态，或者返回 null 来不更新任何内容。
+**static getDerivedStateFromProps(props, state)** 在组件创建时和更新时的 render 方法之前调用，它应该返回一个对象来更新状态，或者返回 null 来不更新任何内容。
 
 `getDerivedStateFromProps` 本来（React v16.3 中）是只在创建和更新（由父组件引发部分），也就是不是由父组件引发，那么 getDerivedStateFromProps 也不会被调用，如自身 setState 引发或者 forceUpdate 引发。
 
