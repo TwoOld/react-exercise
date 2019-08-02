@@ -48,7 +48,7 @@ export default App
 `npm install react-app-rewired customize-cra babel-plugin-import -D`
 
 ```js
-//根目录创建config-overrides.js
+// 根目录创建config-overrides.js
 const { override, fixBabelImports } = require('customize-cra')
 module.exports = override(
   fixBabelImports('import', {
@@ -58,7 +58,7 @@ module.exports = override(
   })
 )
 
-//修改package.json
+// 修改package.json
 {
     "scripts": {
     "start": "react-app-rewired start",
@@ -69,17 +69,54 @@ module.exports = override(
 }
 ```
 
+配置后
+
+```js
+import React, { Component } from 'react'
+import { Button } from 'antd'
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Button type="primary">Button</Button>
+      </div>
+    )
+  }
+}
+export default App
+```
+
 支持装饰器配置
 
 `npm install -D @babel/plugin-proposal-decorators`
 
 ```js
+// config-overrides.js
 const { addDecoratorsLegacy } = require('customize-cra')
 
 module.exports = override(
   ...,
   addDecoratorsLegacy()
 )
+```
+
+配置后，可使用装饰器写法使用高阶组件
+
+```js
+// 装饰器语法 @withLog
+// 先后顺序：从下往上
+@withLog
+@withContent
+class Lesson2 extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.stage} - {this.props.title}
+      </div>
+    )
+  }
+}
 ```
 
 ## 表单组件设计与实现
