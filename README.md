@@ -717,20 +717,25 @@ class Test extends Component {
   **此阶段分为 componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate，render，componentDidUpdate**
 
   - componentWillReceiveProps(nextProps)
+
     此方法只调用于 props 引起的组件更新过程中，参数 nextProps 是父组件传给当前组件的新 props。但父组件 render 方法的调用不能保证重传给当前组件的 props 是有变化的，所以在此方法中根据 nextProps 和 this.props 来查明重传的 props 是否改变，以及如果改变了要执行啥，比如根据新的 props 调用 this.setState 出发当前组件的重新 render
 
   - shouldComponentUpdate(nextProps, nextState)
+
     此方法通过比较 nextProps，nextState 及当前组件的 this.props，this.state，返回 true 时当前组件将继续执行更新过程，返回 false 则当前组件更新停止，以此可用来减少组件的不必要渲染，优化组件性能。
 
     ps：这边也可以看出，就算 componentWillReceiveProps()中执行了 this.setState，更新了 state，但在 render 前（如 shouldComponentUpdate，componentWillUpdate），this.state 依然指向更新前的 state，不然 nextState 及当前组件的 this.state 的对比就一直是 true 了。
 
   - componentWillUpdate(nextProps, nextState)
+
     此方法在调用 render 方法前执行，在这边可执行一些组件更新发生前的工作，一般较少用。
 
   - render
+
     render 方法在上文讲过，这边只是重新调用。
 
   - componentDidUpdate(prevProps, prevState)
+
     此方法在组件更新后被调用，可以操作组件更新的 DOM，prevProps 和 prevState 这两个参数指的是组件更新前的 props 和 state
 
 **卸载阶段**
@@ -738,6 +743,7 @@ class Test extends Component {
 阶段只有一个生命周期方法：componentWillUnmount
 
 - componentWillUnmount
+
   此方法在组件被卸载前调用，可以在这里执行一些清理工作，比如清楚组件中使用的定时器，清楚 componentDidMount 中手动创建的 DOM 元素等，以避免引起内存泄漏。
 
 #### React v16.4 的生命周期
