@@ -33,14 +33,15 @@
 
 ```md
 ├── config
-├── env.js 处理.env 环境变量配置文件
-├── paths.js 提供各种路径
-├── webpack.config.js webpack 配置文件
-└── webpackDevServer.config.js 测试服务器配置文件
+│ ├── env.js 处理.env 环境变量配置文件
+│ ├── paths.js 提供各种路径
+│ ├── webpack.config.js webpack 配置文件
+│ └── webpackDevServer.config.js 测试服务器配置文件
 └── scripts 启动、打包和测试脚本
-├── build.js 打包脚本、
-├── start.js 启动脚本
-└── test.js 测试脚本
+│ ├── build.js 打包脚本
+│ ├── start.js 启动脚本
+│ └── test.js 测试脚本
+└── src 源码
 ```
 
 env.js 用来处理.env 文件中配置的环境变量
@@ -104,8 +105,11 @@ ReactDOM.render(jsx, document.getElementById('root'))
 ```
 
 > React 负责逻辑控制，数据 -> VDOM
-> ReactDom 渲染实际 DOM，VDOM -> DOM，如果换到移动端，就用别的库来渲染
+
+> ReactDOM 渲染实际 DOM，VDOM -> DOM，如果换到移动端，就用别的库来渲染
+
 > React 使用 JSX 来描述 UI
+
 > 入口文件定义，webpack.config.js
 
 ```js
@@ -196,13 +200,13 @@ const jsx = (
 
 ### 组件
 
-组件时抽象的独立功能模块，react 应用程序由组件构建而成。
+组件是抽象的独立功能模块，react 应用程序由组件构建而成。
 
 #### 组件的两种形式
 
 组件有两种形式：**function 组件**和**class 组件**
 
-##### class 组件
+**class 组件**
 
 class 组件通常**拥有状态**和**生命周期**，**继承于 Component**，**实现 render 方法**
 
@@ -239,7 +243,7 @@ export default class JsxTest extends Component {
 }
 ```
 
-> 创建并指定 src/App.js 为根组件
+创建并指定 src/App.js 为根组件
 
 ```js
 import React from 'react'
@@ -254,7 +258,7 @@ function App() {
 export default App
 ```
 
-> index.js 中使用 App 组件
+index.js 中使用 App 组件
 
 ```js
 import App from './App'
@@ -262,7 +266,7 @@ import App from './App'
 ReactDOM.render(<App title="hello" />, document.getElementById('root'))
 ```
 
-##### function 组件
+**function 组件**
 
 函数组件通常**无状态**，仅**关注内容展示**，返回渲染结果即可。
 
@@ -287,7 +291,7 @@ export default App
 
 如果组件中数据会变化，并影响页面内容，则组件需要拥有状态 (state) 并维护状态。
 
-##### 类组件中的状态管理
+**类组件中的状态管理**
 
 class 组件使用 state 和 setState 维护状态
 
@@ -392,7 +396,7 @@ class Clock extends React.Component {
 >   }
 >   ```
 
-##### 函数组件中的状态管理
+**函数组件中的状态管理**
 
 函数组件通过 hooks api 维护状态
 
@@ -596,7 +600,7 @@ class App extends Component {
 
 ![](https://upload-images.jianshu.io/upload_images/16753277-74bd919a8e4dd78a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-##### 第一个是组件初始化(initialization)阶段
+**第一个是组件初始化(initialization)阶段**
 
 也就是以下代码中类的构造方法( constructor() ),Test 类继承了 react Component 这个基类，也就继承这个 react 的基类，才能有 render(),生命周期等方法可以使用，这也说明为什么 函数组件不能使用这些方法 的原因。
 
@@ -611,7 +615,7 @@ class Test extends Component {
 }
 ```
 
-##### 第二个是组件的挂载(Mounting)阶段
+**第二个是组件的挂载(Mounting)阶段**
 
 此阶段分为 componentWillMount，render，componentDidMount 三个时期。
 
@@ -624,11 +628,11 @@ class Test extends Component {
 - componentDidMount:
   组件挂载到 DOM 后调用，且只会被调用一次
 
-##### 第三个是组件的更新(update)阶段
+**第三个是组件的更新(update)阶段**
 
 在讲述此阶段前需要先明确下 react 组件更新机制。setState 引起的 state 更新或父组件重新 render 引起的 props 更新，更新后的 state 和 props 相对之前无论是否有变化，都将引起子组件的重新 render。详细可看[这篇文章](https://www.cnblogs.com/penghuwan/p/6707254.html)
 
-##### 造成组件更新有两类（三种）情况：
+**造成组件更新有两类（三种）情况：**
 
 - 父组件重新 render
   父组件重新 render 引起子组件重新 render 的情况有两种
@@ -724,7 +728,7 @@ class Test extends Component {
   - componentDidUpdate(prevProps, prevState)
     此方法在组件更新后被调用，可以操作组件更新的 DOM，prevProps 和 prevState 这两个参数指的是组件更新前的 props 和 state
 
-##### 卸载阶段
+**卸载阶段**
 
 阶段只有一个生命周期方法：componentWillUnmount
 
@@ -735,7 +739,7 @@ class Test extends Component {
 
 ![](https://upload-images.jianshu.io/upload_images/16753277-28cd08b68ceb22ee.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-##### 变更缘由
+**变更缘由**
 
 原来（React v16.0 前）的生命周期在 React v16 推出的[Fiber](https://zhuanlan.zhihu.com/p/26027085)之后就不合适了，因为如果要开启 async rendering，在 render 函数之前的所有函数，都有可能被执行多次。
 
@@ -754,9 +758,9 @@ class Test extends Component {
 
 React v16.0 刚推出的时候，是增加了一个 componentDidCatch 生命周期函数，这只是一个增量式修改，完全不影响原有生命周期函数；但是，到了 React v16.3，大改动来了，引入了两个新的生命周期函数。
 
-##### 新引入了两个新的生命周期函数：`getDerivedStateFromProps`，`getSnapshotBeforeUpdate`
+**新引入了两个新的生命周期函数：`getDerivedStateFromProps`，`getSnapshotBeforeUpdate`**
 
-###### getDerivedStateFromProps
+- getDerivedStateFromProps
 
 **static getDerivedStateFromProps(props, state)**在组件创建时和更新时的 render 方法之前调用，它应该返回一个对象来更新状态，或者返回 null 来不更新任何内容。
 
@@ -768,7 +772,7 @@ React v16.0 刚推出的时候，是增加了一个 componentDidCatch 生命周�
 
 这样的话理解起来有点乱，在 React v16.4 中改正了这一点，让 getDerivedStateFromProps 无论是 Mounting 还是 Updating，也无论是因为什么引起的 Updating，全部都会被调用，具体可看 React v16.4 的生命周期图。
 
-###### getSnapshotBeforeUpdate
+- getSnapshotBeforeUpdate
 
 **getSnapshotBeforeUpdate()** 被调用于 render 之后，可以读取但无法使用 DOM 的时候。它使您的组件可以在可能更改之前从 DOM 捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给 componentDidUpdate（）。
 
