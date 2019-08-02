@@ -580,16 +580,26 @@ class App extends Component {
 激活卸载阶段，App.js
 
 ```js
-class App extends Component {
+class App extends React.Component {
   state = { prop: 'some content' }
   componentDidMount() {
-    this.setState({ prop: 'new content' })
+    this.setState({ prop: 'new content' }, () => {
+      console.log('属性改变')
+    })
+    console.log('setState触发', this.state.prop)
     setTimeout(() => {
-      this.setState({ prop: '' })
+      this.setState({ prop: '' }, () => {
+        console.log('属性改变')
+      })
+      console.log('setState触发', this.state.prop)
     }, 2000)
   }
   render() {
-    return <div>{this.state.prop && <Lifecycle prop={this.state.prop} />}</div>
+    return (
+      <div>
+        {this.state.prop && <Lifecycle prop={this.state.prop} />}
+      </div>
+    )
   }
 }
 ```
