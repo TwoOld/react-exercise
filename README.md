@@ -608,9 +608,9 @@ class App extends React.Component {
 
 **第一个是组件初始化(initialization)阶段**
 
-也就是以下代码中类的构造方法( constructor() ),Test 类继承了 react Component 这个基类，也就继承这个 react 的基类，才能有 render(),生命周期等方法可以使用，这也说明为什么 函数组件不能使用这些方法 的原因。
+也就是以下代码中类的构造方法（`constructor()`），Test 类继承了 `react Component` 这个基类，也就继承这个 react 的基类，才能有 `render()`,生命周期等方法可以使用，这也说明为什么 **函数组件不能使用这些方法** 的原因。
 
-super(props) 用来调用基类的构造方法( constructor() ), 也将父组件的 props 注入给子组件，功子组件读取(组件中 props 只读不可变，state 可变)。 而 constructor() 用来做一些组件的初始化工作，如定义 this.state 的初始内容。
+`super(props)` 用来调用基类的构造方法（`constructor()`），也将父组件的 `props` 注入给子组件，供子组件读取（组件中 `props` 只读不可变， `state` 可变）。 而 `constructor()` 用来做一些组件的初始化工作，如定义 this.state 的初始内容。
 
 ```js
 import React, { Component } from 'react'
