@@ -7,15 +7,15 @@ import Lifecycle from './components/Lifecycle'
 class App extends React.Component {
   state = { prop: 'some content' }
   componentDidMount() {
+    console.log('setState')
     this.setState({ prop: 'new content' }, () => {
       console.log('属性改变')
     })
-    console.log('setState触发', this.state.prop)
     setTimeout(() => {
+      console.log('setState')
       this.setState({ prop: '' }, () => {
         console.log('属性改变')
       })
-      console.log('setState触发', this.state.prop)
     }, 2000)
   }
   render() {
