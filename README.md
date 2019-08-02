@@ -25,21 +25,22 @@ Redux 是 JavaScript 应用的状态容器。它保证程序行为一致性且�
 
 redux 较难上手，是因为上来就有太多的概念需要学习，用一个累加器举例
 
-1. 需要一个 store 来存储数据
-2. store 里的 reducer 初始化 state 并定义 state 修改规则
-3. 通过 dispatch 一个 action 来提交对数据的修改
-4. action 提交到 reducer 函数里，根据传入的 action 的 type，返回新的 state
+1. 需要一个 `store` 来存储数据
+2. `store` 里的 `reducer` 初始化 `state` 并定义 `state` 修改规则
+3. 通过 `dispatch` 一个 `action` 来提交对数据的修改
+4. `action` 提交到 `reducer` 函数里，根据传入的 `action` 的 `type`, 返回新的 `state`
 
 ```js
 // src/store/index.js
 import { createStore } from 'redux'
 
 const counterReducer = function(state = 0, action) {
+  const num = action.payload || 1
   switch (action.type) {
     case 'add':
-      return state + 1
+      return state + num
     case 'minus':
-      return state - 1
+      return state - num
     default:
       // 初始化
       return state
@@ -67,7 +68,7 @@ export default class ReduxTest extends Component {
       <div>
         {store.getState()}
         <div>
-          <button onClick={() => store.dispatch({ type: 'add' })}>+</button>
+          <button onClick={() => store.dispatch({ type: 'add', payload: 2 })}>+</button>
           <button onClick={() => store.dispatch({ type: 'minus' })}>-</button>
         </div>
       </div>
@@ -76,23 +77,24 @@ export default class ReduxTest extends Component {
 }
 ```
 
-> redux 是单项非响应式的
-> 1. createStore 创建 store
-> 2. reducer 初始化、修改状态函数
-> 3. getState 获取状态值
-> 4. dispatch 提交更新
-> 5. subscribe 变更订阅
+> redux 是单向、非响应式的
+>
+> 1. `createStore` 创建 `store`
+> 2. `reducer` 初始化、修改状态函数
+> 3. `getState` 获取状态值
+> 4. `dispatch` 提交更新
+> 5. `subscribe` 变更订阅
 
 ### react-redux
 
-每次都重新调用 render 和 getState 太 low 了，想用更 react 的方式来写，需要 react-redux 的支持
+每次都重新调用 `render` 和 `getState` 太 low 了，想用更 react 的方式来写，需要 react-redux 的支持
 
 `npm i react-redux -S`
 
 提供了两个 api
 
-1. Provider 为后代组件提供 store
-2. connect 为组件提供数据和变更方法
+1. `Provider` 为后代组件提供 `store`
+2. `connect` 为组件提供数据和变更方法
 
 ```js
 // index.js 入口文件
@@ -100,8 +102,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import store from './store'
+// 引入 Provider
 import { Provider } from 'react-redux'
 
+// 通过 Provider 提供一个全局的 store
 ReactDOM.render(
   <Provider store={store}>
     <App title="hello React" />
@@ -132,6 +136,7 @@ export default store
 // ReduxTest.js
 import React, { Component } from 'react'
 // import store from '../store'
+// 引入 connect
 import { connect } from 'react-redux'
 
 // 参数1：mapStateToProps = (state) => { return { num:state } }
