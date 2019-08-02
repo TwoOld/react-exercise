@@ -8,13 +8,13 @@ export const asyncAdd = num => dispatch => {
   }, 1000)
 }
 
-export const counterReducer = function(state = 0, action) {
+export const counterReducer = function(state = { count: 0 }, action) {
   const num = action.payload || 1
   switch (action.type) {
     case 'add':
-      return state + num
+      return { ...state, count: state.count + num }
     case 'minus':
-      return state - num
+      return { ...state, count: state.count - num }
     default:
       // 初始化
       return state

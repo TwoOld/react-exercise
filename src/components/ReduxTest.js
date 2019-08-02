@@ -9,7 +9,7 @@ import { add, minus, asyncAdd } from '../store/counter'
 // 1.自动渲染
 // 2.状态及修改函数映射到组件属性
 @connect(
-  state => ({ num: state.counter }),
+  state => ({ num: state.counter.count }),
   {
     add,
     minus,
