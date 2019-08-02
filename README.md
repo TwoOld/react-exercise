@@ -620,12 +620,15 @@ class Test extends Component {
 此阶段分为 componentWillMount，render，componentDidMount 三个时期。
 
 - componentWillMount:
+
   在组件挂载到 DOM 前调用，且只会被调用一次，在这边调用 this.setState 不会引起组件重新渲染，也可以把写在这边的内容提前到 constructor()中，所以项目中很少用。
 
 - render:
+
   根据组件的 props 和 state（无两者的重传递和重赋值，论值是否有变化，都可以引起组件重新 render） ，return 一个 React 元素（描述组件，即 UI），不负责组件实际渲染工作，之后由 React 自身根据此元素去渲染出页面 DOM。render 是纯函数（Pure function：函数的返回结果只依赖于它的参数；函数执行过程里面没有副作用），不能在里面执行 this.setState，会有改变组件状态的副作用。
 
 - componentDidMount:
+
   组件挂载到 DOM 后调用，且只会被调用一次
 
 **第三个是组件的更新(update)阶段**
@@ -635,7 +638,9 @@ class Test extends Component {
 **造成组件更新有两类（三种）情况：**
 
 - 父组件重新 render
+
   父组件重新 render 引起子组件重新 render 的情况有两种
+
   a. 直接使用,每当父组件重新 render 导致的重传 props，子组件将直接跟着重新渲染，无论 props 是否有变化。可通过 shouldComponentUpdate 方法优化。
 
   ```js
