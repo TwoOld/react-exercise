@@ -54,10 +54,10 @@ function App(props) {
       {/* 常见组件优化 */}
       {/* <CommentList /> */}
       {/* Redux 上手 */}
-      <ReduxTest />
+      {/* <ReduxTest /> */}
       {/* Redux 原理 */}
       {/* <KReduxTest /> */}
-      {/* <KReactReduxTest /> */}
+      <KReactReduxTest />
       {/* Redux 练习 */}
       {/* <ReduxExercise1 /> */}
     </div>

@@ -45,7 +45,9 @@ export function applyMiddleware(...middlewares) {
       getState: store.getState,
       dispatch: (...args) => dispatch(...args)
     }
-    // [fn1(dispatch), fn2(dispatch)] => fn(dispatch) {}
+    // getState,dispatch 作为参数 
+    // 获取 真正的中间件任务执行函数
+    // [logger(dispatch), thunk(dispatch)] => [fn1(dispatch) { 中间件逻辑 }, fn2(dispatch) { 中间件逻辑 }]
     const chain = middlewares.map(mw => mw(midApi))
     // 强化 dispatch，让它可以按顺序执行中间件函数
     dispatch = compose(...chain)(store.dispatch)
