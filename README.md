@@ -7,12 +7,11 @@
 # 资源
 
 1. [redux](https://www.redux.org.cn/)
-2. react-redux
-3. react-router
+2. [react-redux](https://cn.redux.js.org/docs/react-redux/)
 
 # 起步
 
-tupian
+![](https://upload-images.jianshu.io/upload_images/16753277-b8927a50f50160e2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## Redux
 
@@ -176,13 +175,15 @@ export default ReduxTest
 
 > 重构水果列表案例为 redux 版
 
-### 异步
+### 中间件
+
+#### 异步
 
 react 默认只支持同步，实现异步任务比如延迟，网络请求，需要中间件的支持，比如我们试用最简单的 redux-thunk 和 redux-logger
 
 `npm i redux-thunk redux-logger -S`
 
-tupian
+![](https://upload-images.jianshu.io/upload_images/16753277-8c8165334d97c526.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ```js
 // store/index.js
