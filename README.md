@@ -77,11 +77,11 @@ export default class ReduxTest extends Component {
 ```
 
 > redux 是单项非响应式的
-> 1.createStore 创建 store
-> 2.reducer 初始化、修改状态函数
-> 3.getState 获取状态值
-> 4.dispatch 提交更新
-> 5.subscribe 变更订阅
+> 1. createStore 创建 store
+> 2. reducer 初始化、修改状态函数
+> 3. getState 获取状态值
+> 4. dispatch 提交更新
+> 5. subscribe 变更订阅
 
 ### react-redux
 
