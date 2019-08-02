@@ -5,7 +5,7 @@ import EventHandle from './components/EventHandle'
 import ContextTest from './components/ContextTest'
 import HocTest from './components/HocTest'
 import Composition from './components/Composition'
-import CompositionChildren from './components/CompositionChildren'
+import CloneChildren from './components/CloneChildren'
 import HooksTest from './components/HooksTest'
 
 function App(props) {
@@ -23,8 +23,8 @@ function App(props) {
       {/* <HocTest /> */}
       {/* 组件复合 */}
       {/* <Composition /> */}
-      {/* 组件复合 修改children */}
-      {/* <CompositionChildren /> */}
+      {/* 修改 children */}
+      {/* <CloneChildren /> */}
       {/* Hooks */}
       <HooksTest />
     </div>

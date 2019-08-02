@@ -22,7 +22,7 @@ function RadioGroup(props) {
   )
 }
 
-export default function CompositionChildren() {
+export default function CloneChildren() {
   return (
     <div>
       <RadioGroup name="mvvm">

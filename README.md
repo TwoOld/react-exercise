@@ -2,25 +2,29 @@
 
 ## 组件跨层级通信 - Context
 
-React 中使用 Context 实现祖代组件向后代组件跨层级传值。Vue 中的 provide&inject 来源于 Conetxt
+React 中使用 `Context` 实现祖代组件向后代组件跨层级传值。Vue 中的 `provide` & `inject` 来源于 `Conetxt`
 
-在 Context 模式下有两个角色：
+在 `Context` 模式下有两个角色：
 
 - Provider：外层提供数据的组件
 - Consumer：内层获取数据的组件
 
 ### 使用 Context
 
-创建 Context=>获取 Provider 和 Consumer=>Provider 提供值=>Consumer 消费值
+创建 Context => 获取 Provider 和 Consumer
 
-范例：模拟 redux 存放全局状态，在组件间共享
+Provider 提供值
+
+Consumer 消费值
+
+范例：模拟 redux 存放全局状态，在组件间共享, ContextTest.js
 
 ```js
 import React from 'react'
 
 // 创建 Context
 const Context = React.createContext()
-// 获取Provider和Consumer
+// 获取 Provider 和 Consumer
 const Provider = Context.Provider
 const Consumer = Context.Consumer
 
@@ -49,6 +53,7 @@ export default class ContextTest extends React.Component {
   }
 
   render() {
+    // 使用 Consemer 包裹函数来获取传递的属性
     return (
       <Provider value={{ counter: this.state.counter, add: this.add }}>
         <Consumer>{value => <Child {...value} />}</Consumer>
@@ -66,7 +71,7 @@ export default class ContextTest extends React.Component {
 
 ### 基本使用
 
-范例：为展示组件添加获取数据能力
+范例：为展示组件添加获取数据能力, HocTest.js
 
 ```js
 import React from 'react'
@@ -139,6 +144,8 @@ export default function HocTest() {
 }
 ```
 
+范例：结合 Context, 改造 ContextTest.js
+
 ```js
 import React from 'react'
 
@@ -197,7 +204,7 @@ export default class ContextTest extends React.Component {
 
 ### 组件复合
 
-范例：Dialog 组件负责提示，内容从外部传入即可
+范例：Dialog 组件负责提示，内容从外部传入即可, Composition.js
 
 ```js
 import React from 'react'
@@ -238,7 +245,7 @@ export default function Composition() {
 
 > 这些内容也完全可以作为属性传入
 
-如果传入的是函数，还可以实现作用域插槽的功能
+如果传入的是函数，还可以实现作用域插槽的功能, 改造 Composition.js
 
 ```js
 import React from 'react'
@@ -283,7 +290,7 @@ export default function Composition() {
 
 如果 props.children 是 jsx，此时它是不能修改的
 
-范例：实现 RadioGroup 和 Radio 组件，可通过 Radio Group 设置 Radio 的 name
+范例：实现 RadioGroup 和 Radio 组件，可通过 Radio Group 设置 Radio 的 name, CloneChildren.js
 
 ```js
 import React from 'react'
