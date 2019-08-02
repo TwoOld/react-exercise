@@ -21,6 +21,7 @@ import React from 'react'
 // import ReduxTest from './components/ReduxTest'
 import KReduxTest from './components/KReduxTest'
 import KReactReduxTest from './components/KReactReduxTest'
+import ReduxExercise1 from './components/ReduxExercise1'
 
 function App(props) {
   return (
@@ -39,10 +40,10 @@ function App(props) {
       {/* <Composition /> */}
       {/* 组件复合 修改children */}
       {/* <CompositionChildren /> */}
-      {/* Hooks */}
+      {/* Hooks 上手 */}
       {/* <HooksTest /> */}
       {/* <Button>HELLO</Button> */}
-      {/* Form */}
+      {/* Form 组件 */}
       {/* <WrappedNormalLoginForm /> */}
       {/* <KFormTest /> */}
       {/* 弹窗 */}
@@ -50,13 +51,15 @@ function App(props) {
       {/* <Dialog2>anything!!!</Dialog2> */}
       {/* 树 */}
       {/* <Tree /> */}
-      {/* update */}
+      {/* 常见组件优化 */}
       {/* <CommentList /> */}
-      {/* Redux */}
+      {/* Redux 上手 */}
       {/* <ReduxTest /> */}
       {/* Redux 原理 */}
       {/* <KReduxTest /> */}
-      <KReactReduxTest />
+      {/* <KReactReduxTest /> */}
+      {/* Redux 练习 */}
+      <ReduxExercise1 />
     </div>
   )
 }
