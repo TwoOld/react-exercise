@@ -5,7 +5,18 @@ export default class Lifecycle extends Component {
     super(props)
     // 常用于初始化状态
     console.log('1.组件构造函数执行')
+    this.state = {}
   }
+  //   static getDerivedStateFromProps(props, state) {
+  //     console.log('getDerivedStateFromProps 代替 componentWillMount componentDidMount componentWillReceiveProps componentWillUpdate')
+  //     console.log(props, state)
+  //     return { props, state }
+  //   }
+  //   getSnapshotBeforeUpdate(prevProps, prevState) {
+  //     // 可获取update之前的状态
+  //     // return 结果 将作为第三个参数传递给 componentDidUpdate(prevProps, prevState, snap)
+  //     return null
+  //   }
   componentWillMount() {
     // 此时可以访问状态和属性，可进行api调用等
     console.log('2.组件将要挂载')
@@ -23,11 +34,11 @@ export default class Lifecycle extends Component {
     console.log('5.组件是否需要更新？')
     return true
   }
-  componentWillUpdate() {
+  componentWillUpdate(nextProps, nextState) {
     // 组件将要更新，可做更新统计
     console.log('6.组件将要更新')
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     // 组件更新
     console.log('7.组件已更新')
   }
