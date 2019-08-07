@@ -6,10 +6,10 @@
 
 # 资源
 
-1. umi
-2. dva
-3. redux-saga
-4. generator
+1. [umi](https://umijs.org/zh/)
+2. [dva](https://dvajs.com/)
+3. [redux-saga](https://redux-saga-in-chinese.js.org/)
+4. [generator](https://github.com/57code/frontend/blob/master/doc/Generator.md)
 
 # 起步
 
@@ -151,13 +151,17 @@ isLogin: state.user.isLogin
 
 ## dva
 
-dva 是一个基于 [redux]() 和 [redux-saga]() 的数据流方案, 为了简化开发体验, dva 内置了 [react-router]() 和 [fetch]()。
+dva 是一个基于 `redux` 和 [redux-saga](https://redux-saga-in-chinese.js.org/) 的数据流方案, 为了简化开发体验, dva 内置了 `react-router` 和 `fetch`。
 
 dva 可以作为一个轻量级的应用程序框架
 
-tupian
+![](https://upload-images.jianshu.io/upload_images/16753277-733750ae2a8ca211.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## umi
+
+![](https://upload-images.jianshu.io/upload_images/16753277-cfafa113897e23b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](https://upload-images.jianshu.io/upload_images/16753277-caa8e94791cd7d0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 - 开箱即用, 内置 react、react-router 等
 - 约定路由, 同时支持配置的路由方式
