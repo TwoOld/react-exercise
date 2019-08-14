@@ -19,13 +19,15 @@ export const connect = (
     componentDidMount() {
       const { store } = this.context
       store.subscribe(() => this.update())
-      this.update('init')
+      this.update()
     }
-    update(flag) {
+    update() {
       const { store } = this.context
       const stateProps = mapStateToProps(store.getState())
-      const dispatchProps =
-        flag && bindActionCreators(mapDispatchToProps, store.dispatch)
+      const dispatchProps = bindActionCreators(
+        mapDispatchToProps,
+        store.dispatch
+      )
       this.setState({
         props: {
           ...this.state.props,
