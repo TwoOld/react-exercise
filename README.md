@@ -789,48 +789,48 @@ React v16.0 刚推出的时候，是增加了一个 `componentDidCatch` 生命�
 
   - getDerivedStateFromProps
 
-  **static getDerivedStateFromProps(props, state)** 在组件创建时和更新时的 `render` 方法之前调用，它应该返回一个对象来更新状态，或者返回 `null` 来不更新任何内容。
+    **static getDerivedStateFromProps(props, state)** 在组件创建时和更新时的 `render` 方法之前调用，它应该返回一个对象来更新状态，或者返回 `null` 来不更新任何内容。
 
-  `getDerivedStateFromProps` 本来（React v16.3 中）是只在创建和更新（由父组件引发部分），也就是不是由父组件引发，那么 `getDerivedStateFromProps` 也不会被调用，如自身 `setState` 引发或者 `forceUpdate` 引发。
+    `getDerivedStateFromProps` 本来（React v16.3 中）是只在创建和更新（由父组件引发部分），也就是不是由父组件引发，那么 `getDerivedStateFromProps` 也不会被调用，如自身 `setState` 引发或者 `forceUpdate` 引发。
 
-  ![](https://upload-images.jianshu.io/upload_images/16753277-5933fb71e31ce74a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+    ![](https://upload-images.jianshu.io/upload_images/16753277-5933fb71e31ce74a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-  > React v16.3
+    > React v16.3
 
-  这样的话理解起来有点乱，在 React v16.4 中改正了这一点，让 `getDerivedStateFromProps` 无论是 Mounting 还是 Updating，也无论是因为什么引起的 Updating，全部都会被调用，具体可看 React v16.4 的生命周期图。
+    这样的话理解起来有点乱，在 React v16.4 中改正了这一点，让 `getDerivedStateFromProps` 无论是 Mounting 还是 Updating，也无论是因为什么引起的 Updating，全部都会被调用，具体可看 React v16.4 的生命周期图。
 
   - getSnapshotBeforeUpdate
 
-  **getSnapshotBeforeUpdate()** 被调用于 `render` 之后，可以读取但无法使用 DOM 的时候。它使您的组件可以在可能更改之前从 DOM 捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给 `componentDidUpdate()`。
+    **getSnapshotBeforeUpdate()** 被调用于 `render` 之后，可以读取但无法使用 DOM 的时候。它使您的组件可以在可能更改之前从 DOM 捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给 `componentDidUpdate()`。
 
-  官网给的例子：
+    官网给的例子：
 
-  ```js
-  class ScrollingList extends React.Component {
-    constructor(props) {
-      super(props)
-      this.listRef = React.createRef()
-    }
-    getSnapshotBeforeUpdate(prevProps, prevState) {
-      //我们是否要添加新的 items 到列表?
-      // 捕捉滚动位置，以便我们可以稍后调整滚动.
-      if (prevProps.list.length < this.props.list.length) {
-        const list = this.listRef.current
-        return list.scrollHeight - list.scrollTop
+    ```js
+    class ScrollingList extends React.Component {
+      constructor(props) {
+        super(props)
+        this.listRef = React.createRef()
       }
-      return null
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-      //如果我们有snapshot值, 我们已经添加了 新的items.
-      // 调整滚动以至于这些新的items 不会将旧items推出视图。
-      // (这边的snapshot是 getSnapshotBeforeUpdate方法的返回值)
-      if (snapshot !== null) {
-        const list = this.listRef.current
-        list.scrollTop = list.scrollHeight - snapshot
+      getSnapshotBeforeUpdate(prevProps, prevState) {
+        //我们是否要添加新的 items 到列表?
+        // 捕捉滚动位置，以便我们可以稍后调整滚动.
+        if (prevProps.list.length < this.props.list.length) {
+          const list = this.listRef.current
+          return list.scrollHeight - list.scrollTop
+        }
+        return null
+      }
+      componentDidUpdate(prevProps, prevState, snapshot) {
+        //如果我们有snapshot值, 我们已经添加了 新的items.
+        // 调整滚动以至于这些新的items 不会将旧items推出视图。
+        // (这边的snapshot是 getSnapshotBeforeUpdate方法的返回值)
+        if (snapshot !== null) {
+          const list = this.listRef.current
+          list.scrollTop = list.scrollHeight - snapshot
+        }
+      }
+      render() {
+        return <div ref={this.listRef}>{/* ...contents... */}</div>
       }
     }
-    render() {
-      return <div ref={this.listRef}>{/* ...contents... */}</div>
-    }
-  }
-  ```
+    ```
