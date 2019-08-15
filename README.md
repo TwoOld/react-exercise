@@ -730,29 +730,29 @@ class Test extends Component {
   }
   ```
 
-  **此阶段分为 componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate，render，componentDidUpdate**
+**此阶段分为 componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate，render，componentDidUpdate**
 
-  - componentWillReceiveProps(nextProps)
+- componentWillReceiveProps(nextProps)
 
-    此方法只调用于 `props` 引起的组件更新过程中，参数 `nextProps` 是父组件传给当前组件的新 `props`。但父组件 `render` 方法的调用不能保证重传给当前组件的 `props` 是有变化的，所以在此方法中根据 `nextProps` 和 `this.props` 来查明重传的 `props` 是否改变，以及如果改变了要执行啥，比如根据新的 `props` 调用 `this.setState` 出发当前组件的重新 `render`
+  此方法只调用于 `props` 引起的组件更新过程中，参数 `nextProps` 是父组件传给当前组件的新 `props`。但父组件 `render` 方法的调用不能保证重传给当前组件的 `props` 是有变化的，所以在此方法中根据 `nextProps` 和 `this.props` 来查明重传的 `props` 是否改变，以及如果改变了要执行啥，比如根据新的 `props` 调用 `this.setState` 出发当前组件的重新 `render`
 
-  - shouldComponentUpdate(nextProps, nextState)
+- shouldComponentUpdate(nextProps, nextState)
 
-    此方法通过比较 `nextProps`, `nextState` 及当前组件的 `this.props`, `this.state`, 返回 `true` 时当前组件将继续执行更新过程，返回 `false` 则当前组件更新停止，以此可用来减少组件的不必要渲染，优化组件性能。
+  此方法通过比较 `nextProps`, `nextState` 及当前组件的 `this.props`, `this.state`, 返回 `true` 时当前组件将继续执行更新过程，返回 `false` 则当前组件更新停止，以此可用来减少组件的不必要渲染，优化组件性能。
 
-    ps：这边也可以看出，就算 `componentWillReceiveProps()` 中执行了 `this.setState`, 更新了 `state`, 但在 `render` 前 (如 `shouldComponentUpdate`, `componentWillUpdate`) , `this.state` 依然指向更新前的 `state`, 不然 `nextState` 及当前组件的 `this.state` 的对比就一直是 `true` 了。
+  ps：这边也可以看出，就算 `componentWillReceiveProps()` 中执行了 `this.setState`, 更新了 `state`, 但在 `render` 前 (如 `shouldComponentUpdate`, `componentWillUpdate`) , `this.state` 依然指向更新前的 `state`, 不然 `nextState` 及当前组件的 `this.state` 的对比就一直是 `true` 了。
 
-  - componentWillUpdate(nextProps, nextState)
+- componentWillUpdate(nextProps, nextState)
 
-    此方法在调用 `render` 方法前执行，在这边可执行一些组件更新发生前的工作，一般较少用。
+  此方法在调用 `render` 方法前执行，在这边可执行一些组件更新发生前的工作，一般较少用。
 
-  - render
+- render
 
-    `render` 方法在上文讲过，这边只是重新调用。
+  `render` 方法在上文讲过，这边只是重新调用。
 
-  - componentDidUpdate(prevProps, prevState)
+- componentDidUpdate(prevProps, prevState)
 
-    此方法在组件更新后被调用，可以操作组件更新的 DOM, `prevProps` 和 `prevState` 这两个参数指的是组件更新前的 `props` 和 `state`
+  此方法在组件更新后被调用，可以操作组件更新的 DOM, `prevProps` 和 `prevState` 这两个参数指的是组件更新前的 `props` 和 `state`
 
 **卸载阶段**
 
@@ -785,52 +785,52 @@ class Test extends Component {
 
 React v16.0 刚推出的时候，是增加了一个 `componentDidCatch` 生命周期函数，这只是一个增量式修改，完全不影响原有生命周期函数；但是，到了 React v16.3，大改动来了，引入了两个新的生命周期函数。
 
-**新引入了两个新的生命周期函数：`getDerivedStateFromProps`，`getSnapshotBeforeUpdate`**
+- 新引入了两个新的生命周期函数：`getDerivedStateFromProps`，`getSnapshotBeforeUpdate`
 
-- getDerivedStateFromProps
+  - getDerivedStateFromProps
 
-**static getDerivedStateFromProps(props, state)** 在组件创建时和更新时的 `render` 方法之前调用，它应该返回一个对象来更新状态，或者返回 `null` 来不更新任何内容。
+  **static getDerivedStateFromProps(props, state)** 在组件创建时和更新时的 `render` 方法之前调用，它应该返回一个对象来更新状态，或者返回 `null` 来不更新任何内容。
 
-`getDerivedStateFromProps` 本来（React v16.3 中）是只在创建和更新（由父组件引发部分），也就是不是由父组件引发，那么 `getDerivedStateFromProps` 也不会被调用，如自身 `setState` 引发或者 `forceUpdate` 引发。
+  `getDerivedStateFromProps` 本来（React v16.3 中）是只在创建和更新（由父组件引发部分），也就是不是由父组件引发，那么 `getDerivedStateFromProps` 也不会被调用，如自身 `setState` 引发或者 `forceUpdate` 引发。
 
-![](https://upload-images.jianshu.io/upload_images/16753277-5933fb71e31ce74a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+  ![](https://upload-images.jianshu.io/upload_images/16753277-5933fb71e31ce74a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-> React v16.3
+  > React v16.3
 
-这样的话理解起来有点乱，在 React v16.4 中改正了这一点，让 `getDerivedStateFromProps` 无论是 Mounting 还是 Updating，也无论是因为什么引起的 Updating，全部都会被调用，具体可看 React v16.4 的生命周期图。
+  这样的话理解起来有点乱，在 React v16.4 中改正了这一点，让 `getDerivedStateFromProps` 无论是 Mounting 还是 Updating，也无论是因为什么引起的 Updating，全部都会被调用，具体可看 React v16.4 的生命周期图。
 
-- getSnapshotBeforeUpdate
+  - getSnapshotBeforeUpdate
 
-**getSnapshotBeforeUpdate()** 被调用于 `render` 之后，可以读取但无法使用 DOM 的时候。它使您的组件可以在可能更改之前从 DOM 捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给 `componentDidUpdate()`。
+  **getSnapshotBeforeUpdate()** 被调用于 `render` 之后，可以读取但无法使用 DOM 的时候。它使您的组件可以在可能更改之前从 DOM 捕获一些信息（例如滚动位置）。此生命周期返回的任何值都将作为参数传递给 `componentDidUpdate()`。
 
-官网给的例子：
+  官网给的例子：
 
-```js
-class ScrollingList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.listRef = React.createRef()
-  }
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    //我们是否要添加新的 items 到列表?
-    // 捕捉滚动位置，以便我们可以稍后调整滚动.
-    if (prevProps.list.length < this.props.list.length) {
-      const list = this.listRef.current
-      return list.scrollHeight - list.scrollTop
+  ```js
+  class ScrollingList extends React.Component {
+    constructor(props) {
+      super(props)
+      this.listRef = React.createRef()
     }
-    return null
-  }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    //如果我们有snapshot值, 我们已经添加了 新的items.
-    // 调整滚动以至于这些新的items 不会将旧items推出视图。
-    // (这边的snapshot是 getSnapshotBeforeUpdate方法的返回值)
-    if (snapshot !== null) {
-      const list = this.listRef.current
-      list.scrollTop = list.scrollHeight - snapshot
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+      //我们是否要添加新的 items 到列表?
+      // 捕捉滚动位置，以便我们可以稍后调整滚动.
+      if (prevProps.list.length < this.props.list.length) {
+        const list = this.listRef.current
+        return list.scrollHeight - list.scrollTop
+      }
+      return null
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      //如果我们有snapshot值, 我们已经添加了 新的items.
+      // 调整滚动以至于这些新的items 不会将旧items推出视图。
+      // (这边的snapshot是 getSnapshotBeforeUpdate方法的返回值)
+      if (snapshot !== null) {
+        const list = this.listRef.current
+        list.scrollTop = list.scrollHeight - snapshot
+      }
+    }
+    render() {
+      return <div ref={this.listRef}>{/* ...contents... */}</div>
     }
   }
-  render() {
-    return <div ref={this.listRef}>{/* ...contents... */}</div>
-  }
-}
-```
+  ```

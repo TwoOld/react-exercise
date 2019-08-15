@@ -8,7 +8,7 @@ export default class Lifecycle extends Component {
     this.state = {}
   }
   //   static getDerivedStateFromProps(props, state) {
-  //     console.log('getDerivedStateFromProps 代替 componentWillMount componentDidMount componentWillReceiveProps componentWillUpdate')
+  //     console.log('getDerivedStateFromProps 代替 componentWillMount componentWillReceiveProps componentWillUpdate')
   //     console.log(props, state)
   //     return { props, state }
   //   }
@@ -28,6 +28,8 @@ export default class Lifecycle extends Component {
   componentWillReceiveProps(nextProps, nextState) {
     // 父组件传递的属性有变化，做相应响应
     console.log('4.将要接收属性传递')
+    console.log(nextProps.numObj.num, this.props.numObj.num)
+    console.log(nextProps.numObj.num === this.props.numObj.num)
   }
   shouldComponentUpdate(nextProps, nextState) {
     // 组件是否需要更新，需要返回布尔值结果，优化点
