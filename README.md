@@ -105,11 +105,8 @@ ReactDOM.render(jsx, document.getElementById('root'))
 ```
 
 > React 负责逻辑控制，数据 -> VDOM
-
 > ReactDOM 渲染实际 DOM，VDOM -> DOM，如果换到移动端，就用别的库来渲染
-
 > React 使用 JSX 来描述 UI
-
 > 入口文件定义，webpack.config.js
 
 ```js
