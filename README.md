@@ -336,7 +336,7 @@ export default WrappedNormalLoginForm
   export default KFormTest
   ```
 
-> 尝试实现 Form（布局、提交）、FormItem（错误信息）、Input（前缀图标）
+  > 尝试实现 Form（布局、提交）、FormItem（错误信息）、Input（前缀图标）
 
 ## 弹窗类组件设计与实现
 
