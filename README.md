@@ -1,4 +1,4 @@
-## 起步
+# 起步
 
 1. 安装官方脚手架： npm install -g create-react-app
 
@@ -6,9 +6,9 @@
 
 3. 启动项目： npm start
 
-### 文件结构
+## 文件结构
 
-#### 文件结构一览
+### 文件结构一览
 
 ```md
 ├── README.md 文档
@@ -27,7 +27,7 @@
 ├── package.json npm 依赖
 ```
 
-#### cra 项目真容
+### cra 项目真容
 
 使用 npm run eject 弹出项目真面目，会多出两个目录：
 
@@ -86,7 +86,7 @@ const sassRegex = /\.(scss|sass)$/
 const sassModuleRegex = /\.module\.(scss|sass)$/
 ```
 
-### React 和 ReactDOM
+## React 和 ReactDOM
 
 删除 src 下面所有代码，新建 index.js
 
@@ -206,219 +206,219 @@ const jsx = (
 
 组件有两种形式：**function 组件**和**class 组件**
 
-**class 组件**
+- class 组件
 
-class 组件通常**拥有状态**和**生命周期**，**继承于 Component**，**实现 render 方法**
+  class 组件通常**拥有状态**和**生命周期**，**继承于 Component**，**实现 render 方法**
 
-提取前面 jsx 相关代码至 components/JsxTest.js
+  提取前面 jsx 相关代码至 components/JsxTest.js
 
-```js
-import React, { Component } from 'react'
-import logo from '../logo.svg'
-import style from '../index.module.css'
-export default class JsxTest extends Component {
-  render() {
-    const name = 'react study'
-    const user = { firstName: 'tom', lastName: 'jerry' }
-    function formatName(user) {
-      return user.firstName + ' ' + user.lastName
+  ```js
+  import React, { Component } from 'react'
+  import logo from '../logo.svg'
+  import style from '../index.module.css'
+  export default class JsxTest extends Component {
+    render() {
+      const name = 'react study'
+      const user = { firstName: 'tom', lastName: 'jerry' }
+      function formatName(user) {
+        return user.firstName + ' ' + user.lastName
+      }
+      const greet = <p>hello, Jerry</p>
+      const arr = [1, 2, 3].map(num => <li key={num}>{num}</li>)
+      return (
+        <div>
+          {/* 条件语句 */}
+          {name ? <h2>{name}</h2> : null}
+          {/* 函数也是表达式 */}
+          {formatName(user)}
+          {/* jsx也是表达式 */}
+          {greet}
+          {/* 数组 */}
+          <ul>{arr}</ul>
+          {/* 属性 */}
+          <img src={logo} className={style.img} alt="" />
+        </div>
+      )
     }
-    const greet = <p>hello, Jerry</p>
-    const arr = [1, 2, 3].map(num => <li key={num}>{num}</li>)
+  }
+  ```
+
+  创建并指定 src/App.js 为根组件
+
+  ```js
+  import React from 'react'
+  import JsxTest from './components/JsxTest'
+  function App() {
     return (
       <div>
-        {/* 条件语句 */}
-        {name ? <h2>{name}</h2> : null}
-        {/* 函数也是表达式 */}
-        {formatName(user)}
-        {/* jsx也是表达式 */}
-        {greet}
-        {/* 数组 */}
-        <ul>{arr}</ul>
-        {/* 属性 */}
-        <img src={logo} className={style.img} alt="" />
+        <JsxTest />
       </div>
     )
   }
-}
-```
+  export default App
+  ```
 
-创建并指定 src/App.js 为根组件
+  index.js 中使用 App 组件
 
-```js
-import React from 'react'
-import JsxTest from './components/JsxTest'
-function App() {
-  return (
-    <div>
-      <JsxTest />
-    </div>
-  )
-}
-export default App
-```
+  ```js
+  import App from './App'
 
-index.js 中使用 App 组件
+  ReactDOM.render(<App title="hello" />, document.getElementById('root'))
+  ```
 
-```js
-import App from './App'
+- function 组件
 
-ReactDOM.render(<App title="hello" />, document.getElementById('root'))
-```
+  函数组件通常**无状态**，仅**关注内容展示**，返回渲染结果即可。
 
-**function 组件**
+  改造 App.js
 
-函数组件通常**无状态**，仅**关注内容展示**，返回渲染结果即可。
+  ```js
+  import React from 'react'
+  import JsxTest from './components/JsxTest'
+  function App() {
+    return (
+      <div>
+        <JsxTest />
+      </div>
+    )
+  }
+  export default App
+  ```
 
-改造 App.js
-
-```js
-import React from 'react'
-import JsxTest from './components/JsxTest'
-function App() {
-  return (
-    <div>
-      <JsxTest />
-    </div>
-  )
-}
-export default App
-```
-
-> 从 React16.8 开始引入了 hooks，函数组件也能够拥有状态，后面组件状态管理部分讨论
+  > 从 React16.8 开始引入了 hooks，函数组件也能够拥有状态，后面组件状态管理部分讨论
 
 #### 组件状态管理
 
 如果组件中数据会变化，并影响页面内容，则组件需要拥有状态 (state) 并维护状态。
 
-**类组件中的状态管理**
+- 类组件中的状态管理
 
-class 组件使用 state 和 setState 维护状态
+  class 组件使用 state 和 setState 维护状态
 
-范例：创建状态管理组件 componentes/StateMgt.js
+  范例：创建状态管理组件 componentes/StateMgt.js
 
-```js
-export default function StateMgt() {
-  return (
-    <div>
-      <Clock />
-    </div>
-  )
-}
-```
-
-创建一个 Clock 组件
-
-```js
-class Clock extends React.Component {
-  constructor(props) {
-    super(props)
-    // 使用state属性维护状态，在构造函数中初始化状态
-    this.state = { date: new Date() }
+  ```js
+  export default function StateMgt() {
+    return (
+      <div>
+        <Clock />
+      </div>
+    )
   }
+  ```
 
-  componentDidMount() {
-    // 组件挂载时启动定时器每秒更新状态
-    this.timerID = setInterval(() => {
-      // 使用setState方法更新状态
-      this.setState({
-        date: new Date()
-      })
-    }, 1000)
+  创建一个 Clock 组件
+
+  ```js
+  class Clock extends React.Component {
+    constructor(props) {
+      super(props)
+      // 使用state属性维护状态，在构造函数中初始化状态
+      this.state = { date: new Date() }
+    }
+
+    componentDidMount() {
+      // 组件挂载时启动定时器每秒更新状态
+      this.timerID = setInterval(() => {
+        // 使用setState方法更新状态
+        this.setState({
+          date: new Date()
+        })
+      }, 1000)
+    }
+
+    componentWillUnmount() {
+      // 组件卸载时停止定时器
+      clearInterval(this.timerID)
+    }
+
+    render() {
+      return <div>{this.state.date.toLocaleTimeString()}</div>
+    }
   }
+  ```
 
-  componentWillUnmount() {
-    // 组件卸载时停止定时器
-    clearInterval(this.timerID)
+  > **setState 特性讨论**
+  >
+  > - 用 setState 更新状态而不能直接修改
+  >
+  > ```js
+  > this.state.counter += 1 //错误的
+  > ```
+  >
+  > - setState 是批量进行的，因此对同一个状态执行多次只起一次作用，多个状态更新可以放在同一个 setSate 中进行：
+  >
+  > ```js
+  > componentDidMount() {
+  > // 假如couter初始值为0，执行三次以后其结果是多少？
+  > this.setState({counter: this.state.counter + 1});
+  > this.setState({counter: this.state.counter + 1});
+  > this.setState({counter: this.state.counter + 1});
+  > }
+  > ```
+  >
+  > - setState 通常是异步的，因此如果要获取到最新状态值有以下三种方式：
+  >
+  >   1.传递函数给 setState 方法
+  >
+  >   ```js
+  >   this.setState(state => {
+  >     console.log(state.counter)
+  >     return { counter: state.counter + 1 }
+  >   }) // 0
+  >   this.setState(state => {
+  >     console.log(state.counter)
+  >     return { counter: state.counter + 1 }
+  >   }) // 1
+  >   this.setState(state => {
+  >     console.log(state.counter)
+  >     return { counter: state.counter + 1 }
+  >   }) // 2
+  >   ```
+  >
+  >   2.使用定时器：
+  >
+  >   ```js
+  >   setTimeout(() => {
+  >     console.log(this.state.counter)
+  >   }, 0)
+  >   ```
+  >
+  >   3.原生事件中修改状态
+  >
+  >   ```js
+  >   componentDidMount(){
+  >       document.body.addEventListener('click', this.changeValue, false)
+  >   }
+  >   changeValue = () => {
+  >       this.setState({counter: this.state.counter+1})
+  >       console.log(this.state.counter)
+  >   }
+  >   ```
+
+- 函数组件中的状态管理
+
+  函数组件通过 hooks api 维护状态
+
+  ```js
+  import { useState, useEffect } from 'react'
+  function ClockFunc() {
+    // useState创建一个状态和修改该状态的函数
+    const [date, setDate] = useState(new Date())
+    // useEffect编写副作用代码
+    useEffect(() => {
+      // 启动定时器是我们的副作用代码
+      const timerID = setInterval(() => {
+        setDate(new Date())
+      }, 1000)
+      // 返回清理函数
+      return () => clearInterval(timerID)
+    }, []) // 参数2传递空数组使我们参数1函数仅执行一次
+    return <div>{date.toLocaleTimeString()}</div>
   }
+  ```
 
-  render() {
-    return <div>{this.state.date.toLocaleTimeString()}</div>
-  }
-}
-```
-
-> **setState 特性讨论**
->
-> - 用 setState 更新状态而不能直接修改
->
-> ```js
-> this.state.counter += 1 //错误的
-> ```
->
-> - setState 是批量进行的，因此对同一个状态执行多次只起一次作用，多个状态更新可以放在同一个 setSate 中进行：
->
-> ```js
-> componentDidMount() {
-> // 假如couter初始值为0，执行三次以后其结果是多少？
-> this.setState({counter: this.state.counter + 1});
-> this.setState({counter: this.state.counter + 1});
-> this.setState({counter: this.state.counter + 1});
-> }
-> ```
->
-> - setState 通常是异步的，因此如果要获取到最新状态值有以下三种方式：
->
->   1.传递函数给 setState 方法
->
->   ```js
->   this.setState(state => {
->     console.log(state.counter)
->     return { counter: state.counter + 1 }
->   }) // 0
->   this.setState(state => {
->     console.log(state.counter)
->     return { counter: state.counter + 1 }
->   }) // 1
->   this.setState(state => {
->     console.log(state.counter)
->     return { counter: state.counter + 1 }
->   }) // 2
->   ```
->
->   2.使用定时器：
->
->   ```js
->   setTimeout(() => {
->     console.log(this.state.counter)
->   }, 0)
->   ```
->
->   3.原生事件中修改状态
->
->   ```js
->   componentDidMount(){
->       document.body.addEventListener('click', this.changeValue, false)
->   }
->   changeValue = () => {
->       this.setState({counter: this.state.counter+1})
->       console.log(this.state.counter)
->   }
->   ```
-
-**函数组件中的状态管理**
-
-函数组件通过 hooks api 维护状态
-
-```js
-import { useState, useEffect } from 'react'
-function ClockFunc() {
-  // useState创建一个状态和修改该状态的函数
-  const [date, setDate] = useState(new Date())
-  // useEffect编写副作用代码
-  useEffect(() => {
-    // 启动定时器是我们的副作用代码
-    const timerID = setInterval(() => {
-      setDate(new Date())
-    }, 1000)
-    // 返回清理函数
-    return () => clearInterval(timerID)
-  }, []) // 参数2传递空数组使我们参数1函数仅执行一次
-  return <div>{date.toLocaleTimeString()}</div>
-}
-```
-
-> hooks api 后面会继续深入学习
+  > hooks api 后面会继续深入学习
 
 ### 事件处理
 
