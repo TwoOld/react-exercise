@@ -18,14 +18,12 @@ const Child = withConsumer(Consumer)(function(props) {
   return (
     <div onClick={() => props.add()}>
       {props.counter}
-      <Consumer>{value => <ChildChild {...value} />}</Consumer>
+      {withConsumer(Consumer)(function(props) {
+        return <div>{props.counter + ' ChildChild'}</div>
+      })()}
     </div>
   )
 })
-
-function ChildChild(props) {
-  return <div>{props.counter + ' ChildChild'}</div>
-}
 
 export default class ContextTest extends React.Component {
   state = {

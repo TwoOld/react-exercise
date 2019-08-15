@@ -167,14 +167,12 @@ const Child = withConsumer(Consumer)(function(props) {
   return (
     <div onClick={() => props.add()}>
       {props.counter}
-      <Consumer>{value => <ChildChild {...value} />}</Consumer>
+      {withConsumer(Consumer)(function(props) {
+        return <div>{props.counter + ' ChildChild'}</div>
+      })()}
     </div>
   )
 })
-
-function ChildChild(props) {
-  return <div>{props.counter + ' ChildChild'}</div>
-}
 
 export default class ContextTest extends React.Component {
   state = {
@@ -256,9 +254,10 @@ const messages = {
 }
 // Dialog定义组件外观和行为
 function Dialog(props) {
-  const { def, footer } = props.children(messages[props.msg])
   // props.children就代表了标签内部内容
   // children是什么？ 答案是合法的js表达式
+  const { def, footer } = props.children(messages[props.msg])
+
   return (
     <div style={{ border: '1px solid blue' }}>
       {def}
@@ -336,7 +335,7 @@ Hook 是 React16.8 一个新增项，它可以让你在不编写 class 的情况
 
 Hook 的特点：
 
-- 是你在无需修改组件结构的情况下复用状态逻辑
+- 使你在无需修改组件结构的情况下复用状态逻辑
 - 可将组件中相互关联的部分拆分成更小的函数，复杂组件将变得更容易理解
 - 更简洁、更易理解的代码
 
@@ -344,105 +343,105 @@ Hook 的特点：
 
 - 升级 react、react-dom
 
-```
-npm i react react-dom -S
-```
+  ```
+  npm i react react-dom -S
+  ```
 
 ### 状态钩子 State Hook
 
 - 创建 HooksTest.js
 
-```js
-import React, { useState, useEffect } from 'react'
+  ```js
+  import React, { useState, useEffect } from 'react'
 
-export default function HooksTest() {
-  // useState(initialState)，接收初始状态，返回一个由状态和其更新函数组成的数组
-  const [fruit, setFruit] = useState('')
-  return (
-    <div>
-      <p>{fruit === '' ? '请选择喜爱的水果：' : `您的选择是：${fruit}`}</p>
-    </div>
-  )
-}
-```
+  export default function HooksTest() {
+    // useState(initialState)，接收初始状态，返回一个由状态和其更新函数组成的数组
+    const [fruit, setFruit] = useState('')
+    return (
+      <div>
+        <p>{fruit === '' ? '请选择喜爱的水果：' : `您的选择是：${fruit}`}</p>
+      </div>
+    )
+  }
+  ```
 
-> 更新函数类似 setState，但它不会整合新旧状态
+  > 更新函数类似 setState，但它不会整合新旧状态
 
 - 声明多个状态变量
 
-```js
-import React, { useState, useEffect } from 'react'
+  ```js
+  import React, { useState, useEffect } from 'react'
 
-// 声明列表组件
-function FruitList({ fruits, onSetFruit }) {
-  return (
-    <ul>
-      {fruits.map((fruit, index) => (
-        <li onClick={() => onSetFruit(fruit)} key={index}>
-          {fruit}
-        </li>
-      ))}
-    </ul>
-  )
-}
+  // 声明列表组件
+  function FruitList({ fruits, onSetFruit }) {
+    return (
+      <ul>
+        {fruits.map((fruit, index) => (
+          <li onClick={() => onSetFruit(fruit)} key={index}>
+            {fruit}
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
-export default function HooksTest() {
-  // useState(initialState)，接收初始状态，返回一个由状态和其更新函数组成的数组
-  const [fruit, setFruit] = useState('')
-  // 声明数组状态
-  const [fruits, setFruits] = useState(['banana', 'apple'])
+  export default function HooksTest() {
+    // useState(initialState)，接收初始状态，返回一个由状态和其更新函数组成的数组
+    const [fruit, setFruit] = useState('')
+    // 声明数组状态
+    const [fruits, setFruits] = useState(['banana', 'apple'])
 
-  return (
-    <div>
-      <p>{fruit === '' ? '请选择喜爱的水果：' : `您的选择是：${fruit}`}</p>
-      {/* 列表 */}
-      <FruitList fruits={fruits} onSetFruit={setFruit} />
-    </div>
-  )
-}
-```
+    return (
+      <div>
+        <p>{fruit === '' ? '请选择喜爱的水果：' : `您的选择是：${fruit}`}</p>
+        {/* 列表 */}
+        <FruitList fruits={fruits} onSetFruit={setFruit} />
+      </div>
+    )
+  }
+  ```
 
 - 输入组件
 
-```js
-import React, { useState, useEffect } from 'react'
+  ```js
+  import React, { useState, useEffect } from 'react'
 
-// 声明输入组件
-function FruitAdd(props) {
-  // 输入内容状态及设置内容状态的方法
-  const [pname, setPname] = useState('')
-  // 键盘事件处理
-  const onAddFruit = e => {
-    if (e.key === 'Enter') {
-      props.onAddFruit(pname)
-      setPname('')
+  // 声明输入组件
+  function FruitAdd(props) {
+    // 输入内容状态及设置内容状态的方法
+    const [pname, setPname] = useState('')
+    // 键盘事件处理
+    const onAddFruit = e => {
+      if (e.key === 'Enter') {
+        props.onAddFruit(pname)
+        setPname('')
+      }
     }
+
+    return (
+      <div>
+        <input
+          type="text"
+          value={pname}
+          onChange={e => setPname(e.target.value)}
+          onKeyDown={onAddFruit}
+        />
+      </div>
+    )
   }
 
-  return (
-    <div>
-      <input
-        type="text"
-        value={pname}
-        onChange={e => setPname(e.target.value)}
-        onKeyDown={onAddFruit}
-      />
-    </div>
-  )
-}
+  export default function HooksTest() {
+    // 声明数组状态
+    const [fruits, setFruits] = useState(['banana', 'apple'])
 
-export default function HooksTest() {
-  // 声明数组状态
-  const [fruits, setFruits] = useState(['banana', 'apple'])
-
-  return (
-    <div>
-      {/* 键盘事件处理 */}
-      <FruitAdd onAddFruit={pname => setFruits([...fruits, pname])} />
-    </div>
-  )
-}
-```
+    return (
+      <div>
+        {/* 键盘事件处理 */}
+        <FruitAdd onAddFruit={pname => setFruits([...fruits, pname])} />
+      </div>
+    )
+  }
+  ```
 
 ### 副作用钩子 Effect Hook
 
@@ -452,45 +451,45 @@ export default function HooksTest() {
 
 - 异步数据获取
 
-```js
-useEffect(() => {
-  setTimeout(() => {
-    console.log('msg')
-  }, 1000)
-})
-```
+  ```js
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('msg')
+    }, 1000)
+  })
+  ```
 
-> 测试会发现副作用操作会被频繁调用
+  > 测试会发现副作用操作会被频繁调用
 
 - 设置依赖
 
-```js
-// 设置空数组意为没有依赖，则副作用仅执行一次
-useEffect(() => {...}, [])
-```
+  ```js
+  // 设置空数组意为没有依赖，则副作用仅执行一次
+  useEffect(() => {...}, [])
+  ```
 
-> 如果副作用操作对某状态有依赖，务必添加依赖
+  > 如果副作用操作对某状态有依赖，务必添加依赖
 
-```js
-useEffect(() => {
-  document.title = fruit
-}, [fruit])
-```
+  ```js
+  useEffect(() => {
+    document.title = fruit
+  }, [fruit])
+  ```
 
 - 清除工作：有一些副作用是需要清除的，清除工作非常的重要，可以防止引起内存泄漏
 
-```js
-useEffect(() => {
-  const timer = setInterval(() => {
-    console.log('msg')
-  }, 1000)
-  return () => {
-    clearInterval(timer)
-  }
-}, [])
-```
+  ```js
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log('msg')
+    }, 1000)
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
+  ```
 
-> 组件卸载后会执行返回的清理函数
+  > 组件卸载后会执行返回的清理函数
 
 ### useReducer
 
@@ -498,50 +497,50 @@ useReducer 是 useState 的可选项，常用于组件有复杂状态逻辑时�
 
 - 商品列表状态维护
 
-```js
-import React, { useState, useEffect, useReducer } from 'react'
+  ```js
+  import React, { useState, useEffect, useReducer } from 'react'
 
-// 添加fruit状态维护fruitReducer
-// 理解为vuex里面的mutations
-function fruitReducer(state, action) {
-  switch (action.type) {
-    case 'init':
-      return action.payload
-    case 'add':
-      return [...state, action.payload]
-    default:
-      return state
+  // 添加fruit状态维护fruitReducer
+  // 理解为vuex里面的mutations
+  function fruitReducer(state, action) {
+    switch (action.type) {
+      case 'init':
+        return action.payload
+      case 'add':
+        return [...state, action.payload]
+      default:
+        return state
+    }
   }
-}
 
-export default function HooksTest() {
-  //   const [fruits, setFruits] = useState([])
-  // 代替组件内部状态
-  // 参数1是reducer
-  // 参数2是初始值
-  const [fruits, dispatch] = useReducer(fruitReducer, [])
+  export default function HooksTest() {
+    //   const [fruits, setFruits] = useState([])
+    // 代替组件内部状态
+    // 参数1是reducer
+    // 参数2是初始值
+    const [fruits, dispatch] = useReducer(fruitReducer, [])
 
-  // 异步获取水果列表
-  useEffect(() => {
-    console.log('useEffect')
+    // 异步获取水果列表
+    useEffect(() => {
+      console.log('useEffect')
 
-    setTimeout(() => {
-      //   setFruits(['banana', 'apple'])
-      // 变更状态，派发动作即可
-      dispatch({ type: 'init', payload: ['banana', 'apple'] })
-    }, 1000)
-  }, []) // 依赖为空表示只执行一次
+      setTimeout(() => {
+        //   setFruits(['banana', 'apple'])
+        // 变更状态，派发动作即可
+        dispatch({ type: 'init', payload: ['banana', 'apple'] })
+      }, 1000)
+    }, []) // 依赖为空表示只执行一次
 
-  return (
-    <div>
-      {/* 修改为派发动作 */}
-      <FruitAdd
-        onAddFruit={pname => dispatch({ type: 'add', payload: pname })}
-      />
-    </div>
-  )
-}
-```
+    return (
+      <div>
+        {/* 修改为派发动作 */}
+        <FruitAdd
+          onAddFruit={pname => dispatch({ type: 'add', payload: pname })}
+        />
+      </div>
+    )
+  }
+  ```
 
 ### useContext
 

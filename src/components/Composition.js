@@ -40,9 +40,10 @@ const messages = {
 }
 // Dialog定义组件外观和行为
 function Dialog(props) {
-  const { def, footer } = props.children(messages[props.msg])
   // props.children就代表了标签内部内容
   // children是什么？ 答案是合法的js表达式
+  const { def, footer } = props.children(messages[props.msg])
+
   return (
     <div style={{ border: '1px solid blue' }}>
       {def}
