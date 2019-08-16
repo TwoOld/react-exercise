@@ -19,7 +19,7 @@ import React from 'react'
 // import Tree from './components/Tree'
 // import CommentList from './components/CommentList'
 import ReduxTest from './components/ReduxTest'
-// import KReduxTest from './components/KReduxTest'
+import KReduxTest from './components/KReduxTest'
 import KReactReduxTest from './components/KReactReduxTest'
 import ReduxExercise1 from './components/ReduxExercise1'
 
